@@ -1,0 +1,1 @@
+<?php echo"<input type='submit' value='Confirmer' title='Valider et quitter'/> <input type='button' value='Annuler' title='Retour au questionnaire' onclick=\"modalDisplay('none')\"/>"?>
