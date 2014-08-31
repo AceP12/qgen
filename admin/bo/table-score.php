@@ -12,7 +12,7 @@ require_once $urlrel."inc/functions.php";
 	$count=$data->query("SELECT count(*) FROM candidats WHERE visible=1")->fetchColumn(); // récupère le nombre de candidats visibles en comptant le nombre de lignes dans la table 'candidats'
 
 /* génération des colonnes et intitulés du tableau */
-	$TOTALCOLS=5;$hall.="$t6<tr><th class='th-lite'>Questionnaire soumis</th>  <th>ID</th> <th>Candidat</th> <th>Score</th>"; // (3 col) crée une ligne et on ajoute les colonnes et les intitulés, 
+	$TOTALCOLS=6;$hall.="$t6<tr><th class='th-lite'>Voir le questionnaire</th><th class='th-lite'>Questionnaire soumis</th>  <th>ID</th> <th>Candidat</th> <th>Score</th>"; // (3 col) crée une ligne et on ajoute les colonnes et les intitulés, 
 	if($count){ // si le nombre de candidats visibles est supérieur à 0...
 		$count=0; // réinitialise compteur pour afficher le nombre exact de candidats dans le tableau
 
@@ -76,6 +76,8 @@ require_once $urlrel."inc/functions.php";
 		
 		$req=$data->query("SELECT label,ID_Domaine FROM domaines WHERE visible=1 ORDER BY $domorderby $dasc"); // récupère les données de chaque domaine visible,
 		for($i=0;$line_n=$req->fetch();$i++){ // boucle pour générer les colonnes des domaines et catégories
+
+			 // echo "</pre>";var_dump($line_n); echo "</pre>";die();
 			$array_dom[$line_n['ID_Domaine']]=$i; // associe le numéro de colonne i (débute à 0) au domaine en cours
 			$array_score[$i]="-"; // crée un array compteur de bonne réponse d'index i pour l'associer au numéro de colonne i, et donc au domaine par array_dom d'index ID_domaine et de valeur i (si un domaine n'a pas été soumis à un candidat, un tiret "-" remplacera le score)
 			$TOTALCOLS++;$hall.="<th class='th-lite'>".utf8_encode($line_n['label'])."</th>"; // (+1 col) crée une colonne pour le domaine en cours et son intitulé
@@ -120,7 +122,8 @@ require_once $urlrel."inc/functions.php";
 				$array_repns=explode(",",utf8_encode($line_n['reponses_donnees'])); // comme précédemment mais avec les 'reponses_donnees' pour extraire le # des réponses données
 
 				$reqqcm->execute(array($id_qcm));$line_qcm=$reqqcm->fetch(); // récupère le nom du qcm en fonction de l'id du qcm
-					$hall.="$t6<tr><td class='th-cat$class_cat'>".utf8_encode($line_qcm['label'])."</td>"; // case le nom du QCM
+					$hall.= "$t6<tr><td class='th-cat$class_cat'>".utf8_encode($line_qcm['label'])."</td>";
+					$hall.="<td class='th-cat$class_cat'>".utf8_encode($line_qcm['label'])."</td>"; // case le nom du QCM
 					$hall.="<td class='td-id$class_cat'>".$line_n['ID_Candidat']."</td>"; // nouvelle ligne n, case l'ID du candidat
 					$hall.="<th class='th-main$class_cat'>".utf8_encode($line_n['nom'])." ".utf8_encode($line_n['prenom'])."</th>"; // ligne n, case Nom et prénom du candidat
 					$hall.="<th class='th-main$class_cat'>".$line_n['score']."<span> /".count($array_quest)."</span></th>"; // case le score global
@@ -179,6 +182,7 @@ require_once $urlrel."inc/functions.php";
 				foreach($array_score as $i=>$value){$array_score[$i]="-";} // réinitialise compteurs de bonne réponse
 				foreach($array_scorecat as $i=>$value){$array_scorecat[$i]=array("-");} // réinitialise compteurs de bonne réponse
 			}
+			// var_dump($line_n['ID_Candidat']);die();
 			$hall.=masquer($n,$line_n['ID_Candidat'])."</tr>\n"; // affiche ou non les case à cocher Voir, et fin de la ligne n
 		}$req->closeCursor();
 	}else{ // sinon (si aucun candidat n'est présent dans la base de données)...
