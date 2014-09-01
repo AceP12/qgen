@@ -12,7 +12,7 @@ require_once $urlrel."inc/functions.php";
 	$count=$data->query("SELECT count(*) FROM candidats WHERE visible=1")->fetchColumn(); // récupère le nombre de candidats visibles en comptant le nombre de lignes dans la table 'candidats'
 
 /* génération des colonnes et intitulés du tableau */
-	$TOTALCOLS=6;$hall.="$t6<tr><th class='th-lite'>Voir le questionnaire</th><th class='th-lite'>Questionnaire soumis</th>  <th>ID</th> <th>Candidat</th> <th>Score</th>"; // (3 col) crée une ligne et on ajoute les colonnes et les intitulés, 
+	$TOTALCOLS=5;$hall.="$t6<tr><th class='th-lite'>Voir le questionnaire</th><th class='th-lite'>Questionnaire soumis</th>  <th>ID</th> <th>Candidat</th> <th>Score</th>"; // (3 col) crée une ligne et on ajoute les colonnes et les intitulés, 
 	if($count){ // si le nombre de candidats visibles est supérieur à 0...
 		$count=0; // réinitialise compteur pour afficher le nombre exact de candidats dans le tableau
 
@@ -122,7 +122,8 @@ require_once $urlrel."inc/functions.php";
 				$array_repns=explode(",",utf8_encode($line_n['reponses_donnees'])); // comme précédemment mais avec les 'reponses_donnees' pour extraire le # des réponses données
 
 				$reqqcm->execute(array($id_qcm));$line_qcm=$reqqcm->fetch(); // récupère le nom du qcm en fonction de l'id du qcm
-					$hall.= "$t6<tr><td class='th-cat$class_cat'>".utf8_encode($line_qcm['label'])."</td>";
+
+					$hall.=viewQuestions($n,$line_n['ID_Candidat']); // affiche ou non les case à cocher Voir, et fin de la ligne n
 					$hall.="<td class='th-cat$class_cat'>".utf8_encode($line_qcm['label'])."</td>"; // case le nom du QCM
 					$hall.="<td class='td-id$class_cat'>".$line_n['ID_Candidat']."</td>"; // nouvelle ligne n, case l'ID du candidat
 					$hall.="<th class='th-main$class_cat'>".utf8_encode($line_n['nom'])." ".utf8_encode($line_n['prenom'])."</th>"; // ligne n, case Nom et prénom du candidat
@@ -182,7 +183,6 @@ require_once $urlrel."inc/functions.php";
 				foreach($array_score as $i=>$value){$array_score[$i]="-";} // réinitialise compteurs de bonne réponse
 				foreach($array_scorecat as $i=>$value){$array_scorecat[$i]=array("-");} // réinitialise compteurs de bonne réponse
 			}
-			// var_dump($line_n['ID_Candidat']);die();
 			$hall.=masquer($n,$line_n['ID_Candidat'])."</tr>\n"; // affiche ou non les case à cocher Voir, et fin de la ligne n
 		}$req->closeCursor();
 	}else{ // sinon (si aucun candidat n'est présent dans la base de données)...
@@ -196,6 +196,8 @@ require_once $urlrel."inc/functions.php";
 
 	$scripts="$t5<script type='text/javascript'>$t6"."function trier(){var tri=document.getElementById('tri').value,asc=document.getElementById('asc').value, dtri=document.getElementById('dtri').value,dasc=document.getElementById('dasc').value, ctri=document.getElementById('ctri').value,casc=document.getElementById('casc').value;\$.ajax({url:'bo/table-score.php',dataType:'html',type:'get',data:'tri='+tri+'&asc='+asc+'&dtri='+dtri+'&dasc='+dasc+'&ctri='+ctri+'&casc='+casc,success:function(hallin){\$('#hallin').html(hallin);}});}\n";
 	$scripts.="$t6"."function maskID(mskid){\$.post('req/checker.php',{table:'candidats',id:mskid,visible:0});}\n";
+
+	$scripts.="$t6"."function redirAnswers(ID_Candidat){}"
 	$scripts.="$t5</script>\n";
 
 echo $scripts.$hallhead.$hall;

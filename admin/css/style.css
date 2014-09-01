@@ -172,3 +172,7 @@ select{cursor:pointer;}
 .ie1em{height:1em;}
 p+p,input+label{margin-top:1em!important;}
 p+div{margin-top:1.6em!important;}
+
+/* updates 01/09/2014 */
+.btn-view.visualiser-questionnaire{float:none;text-align:center;display:block;width:20px;height:20px;background:url(../img/manage-buttons.png) no-repeat;cursor:pointer;border:none;background-position: -20px top;}
+.btn-view.visualiser-questionnaire:hover{float:none;text-align:center;display:block;width:20px;height:20px;background:url(../img/manage-buttons.png) no-repeat;cursor:pointer;border:none;background-position: -20px -20px;}
