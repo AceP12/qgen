@@ -15,6 +15,8 @@ $IDqcm=$last['id_questionnaire'];
 $IDcan=$last['ID_Candidat'];
 $assoc=utf8_encode($last['assoc']);
 
+// var_dump($assoc);
+
 if($assoc==NULL){
 
 	$line_n=$data->query("SELECT liste_questions,temps_imparti FROM questionnaires WHERE ID_Questionnaire=$IDqcm")->fetch();

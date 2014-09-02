@@ -4,16 +4,21 @@ require_once"../inc/functions.php";
 
 if(isset($_GET['id']) && $_GET['id'] > 0 && !empty($_GET['id'])) 
 {
-	// $candidat = $data->query('SELECT * FROM candidats WHERE ID_Candidat = ' . $_GET['id'])->fetch();
+	// $candidat = $data->query('SELECT * FROM candidats WHERE ID_Candidat = ' . $_GET['id'])->fetchAll();
 
-	// $questions = explode(",", $candidat['questions_posees']);
-	// foreach ($questions as $key => $value) {
-	// 	$question = $data->query('SELECT ')
-	// }
+	$req = $data->query('SELECT * FROM v_scores v WHERE ID_Candidat = ' . $_GET['id'])->fetch();
+	// $questions = explode(",", $req['questions_posees']);
+	foreach ($questions = explode(",", $req['questions_posees']) as $key => $value) {
+		$question = $data->query("SELECT question, rep_1, rep_2, rep_3, rep_4 FROM questions WHERE  ID_Question = $value")->fetch();
+	var_dump($question);
+		echo "<hr>";
+	}
+	foreach ($reponse = explode(",", $req['reponses_donnees']) as $key) {
+		var_dump($key);
+		echo "<hr>";
+	}
 
-	$score = $data->query('SELECT * FROM v_scores WHERE ID_Candidat = ' . $_GET['id'])->fetch();
 
-	var_dump($score);die();
 }else
 {
 

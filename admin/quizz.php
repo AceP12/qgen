@@ -1,7 +1,7 @@
 <?php 
 // en-tête de page
 	$page_title="Questionnaire";
-	include"../inc/opener-quizz.php";
+	include"inc/opener-quizz.php";
 	// en-tête du contenu
 		echo"<div id='section'>\n";
 	// contenu

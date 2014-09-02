@@ -72,7 +72,7 @@ for($q=1;$q<$quest_count+1;$q++){
 							<div class="clear"></div>
 						</div>
 <?=$quest_field?>
-<?php include"inc/timer.php"?>
+<?php include"inc/timer.php"; ?>
 						<div id="btnval"><input type="button" value="VALIDER ET QUITTER" onclick="modalDisplay('block')"/></div>
 						<input type="hidden" id="idcan" name="idcan" value="<?=$IDcan?>"/>
 						<input type="hidden" id="ecoule" name="ecoule" value="0"/>
