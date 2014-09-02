@@ -56,9 +56,9 @@ function masquer($id,$ID_main){ // case à cocher Voir selon le niveau de permis
 	global $admin,$compact,$class_cat;
 	return ($admin && !$compact)? "<td class='td$class_cat'><span class='btn-view' title='Retirer le candidat $ID_main du tableau des scores' onmousedown='maskID($ID_main)' onmouseup='window.location.reload()'></span></td>":"";
 }
-function viewQuestions($id,$ID_main){ // case à cocher Voir selon le niveau de permissions (admin) et si le tableau n'est pas en mode compact
+function viewQuestions($id){ // Redirection vers le questionnarie avec l'id du candidat
 	global $admin,$compact,$class_cat;
-	return ($admin && !$compact)? "$t6<tr><td class='td$class_cat'><span class='btn-view visualiser-questionnaire' title='Voir le questionnaire du candidat $ID_main' onmousedown='redirAnswers($ID_Candidat)' onmouseup='window.location.reload()'></span></td>":"";
+	return ($admin && !$compact)? "<tr><td class='td$class_cat'><span class='btn-view visualiser-questionnaire' title='Voir le questionnaire du candidat $id' onmousedown='redirAnswers($id)' onmouseup='window.location.reload()'></span></td>":"";
 }
 function addFormButton($title){ // bouton Ajouter visible selon le niveau de permissions (crea) et si le tableau n'est pas en mode compact
 	global $crea,$compact;

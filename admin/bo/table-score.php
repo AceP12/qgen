@@ -197,7 +197,7 @@ require_once $urlrel."inc/functions.php";
 	$scripts="$t5<script type='text/javascript'>$t6"."function trier(){var tri=document.getElementById('tri').value,asc=document.getElementById('asc').value, dtri=document.getElementById('dtri').value,dasc=document.getElementById('dasc').value, ctri=document.getElementById('ctri').value,casc=document.getElementById('casc').value;\$.ajax({url:'bo/table-score.php',dataType:'html',type:'get',data:'tri='+tri+'&asc='+asc+'&dtri='+dtri+'&dasc='+dasc+'&ctri='+ctri+'&casc='+casc,success:function(hallin){\$('#hallin').html(hallin);}});}\n";
 	$scripts.="$t6"."function maskID(mskid){\$.post('req/checker.php',{table:'candidats',id:mskid,visible:0});}\n";
 
-	$scripts.="$t6"."function redirAnswers(ID_Candidat){}"
+	$scripts.="$t6"."function redirAnswers(" . $line_n['ID_Candidat'] . "){}";
 	$scripts.="$t5</script>\n";
 
 echo $scripts.$hallhead.$hall;
