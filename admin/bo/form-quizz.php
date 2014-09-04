@@ -9,14 +9,26 @@ if(isset($_GET['id']) && $_GET['id'] > 0 && !empty($_GET['id']))
 	$req = $data->query('SELECT * FROM v_scores v WHERE ID_Candidat = ' . $_GET['id'])->fetch();
 	// $questions = explode(",", $req['questions_posees']);
 	foreach ($questions = explode(",", $req['questions_posees']) as $key => $value) {
-		$question = $data->query("SELECT question, rep_1, rep_2, rep_3, rep_4 FROM questions WHERE  ID_Question = $value")->fetch();
-	var_dump($question);
+		$question = $data->query("SELECT question, rep_1, rep_2, rep_3, rep_4 FROM questions WHERE  ID_Question = $value")->fetchColumn();
+	// var_dump($question);
+	// var_dump($value);
+		echo "<hr>";
+
+
+		$req = $data->query('SELECT question, rep_1, rep_2');
+	}
+	foreach ($reponse_donnees = explode(",", $req['reponses_donnees']) as $key) {
+		//var_dump($key);
 		echo "<hr>";
 	}
-	foreach ($reponse = explode(",", $req['reponses_donnees']) as $key) {
-		var_dump($key);
+
+	$question = $data->query('SELECT `q`.`question`, `q`.`rep_1`, `q`.`rep_2`, `q`.`rep_3`, `q`.`rep_4`, `c`.`ID_Candidat`, `c`.`reponses_donnees`, `c`.`id_questionnaire` FROM questions as q JOIN candidats as c WHERE `c`.`ID_Candidat` = 186');
+
+	foreach ($question as $key => $value) {
+		var_dump($value);
 		echo "<hr>";
 	}
+
 
 
 }else

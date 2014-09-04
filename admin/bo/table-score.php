@@ -3,6 +3,7 @@ $urlrel=(isset($_GET['tri'])||isset($_GET['dtri'])||isset($_GET['ctri']))?"../":
 require_once $urlrel."req/connect.php";
 require_once $urlrel."inc/functions.php";
 
+$n = 0; // Initialisation de $n a 0 pcq je ne sais pas à quoi ça correspond. 03/09/2014
 
 	$AUCUN="Aucun participant enregistré ou visible."; // message affiché en l'absence de donnée
 	$hall_class="";
